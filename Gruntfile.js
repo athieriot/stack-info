@@ -272,6 +272,11 @@ module.exports = function (grunt) {
           dest: ''
         }]
       }
+    },
+    release: {
+      options: {
+        npm: false
+      }
     }
   });
 
