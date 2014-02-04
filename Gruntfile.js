@@ -40,6 +40,10 @@ module.exports = function (grunt) {
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server']
+      },
+      react: {
+        files: ['<%= yeoman.app %>/scripts/{,*/}*.jsx'],
+        tasks: ['react']
       }
     },
     connect: {
@@ -108,6 +112,19 @@ module.exports = function (grunt) {
           dest: '.tmp/spec',
           ext: '.js'
         }]
+      }
+    },
+    react: {
+      dynamic_mappings: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.app %>/scripts',
+            src: ['**/*.jsx'],
+            dest: '<%= yeoman.app %>/scripts',
+            ext: '.js'
+          }
+        ]
       }
     },
     compass: {
@@ -234,6 +251,7 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'coffee:dist',
+        'react',
         'compass:server'
       ],
       test: [
@@ -241,6 +259,7 @@ module.exports = function (grunt) {
         'compass'
       ],
       dist: [
+        'react',
         'coffee',
         'compass:dist',
         'imagemin',

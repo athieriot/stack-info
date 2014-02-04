@@ -1,6 +1,6 @@
 {
     "name": "__MSG_appName__",
-    "version": "0.0.3",
+    "version": "0.0.10",
     "manifest_version": 2,
     "description": "__MSG_appDescription__",
     "icons": {
@@ -9,13 +9,15 @@
     "default_locale": "en",
     "background": {
         "scripts": [
-            "scripts/background.js"
+          "scripts/common.js",
+          "scripts/background.js"
         ],
         "persistent": false
     },
     "permissions": [
         "https://api.stackexchange.com/",
         "alarms",
+        "tabs",
         "storage"
     ],
     "browser_action": {

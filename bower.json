@@ -1,6 +1,9 @@
 {
   "name": "stack-info",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "oauth.io": "*",
+    "react": "~0.8.0"
+  },
   "devDependencies": {}
 }

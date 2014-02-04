@@ -3,3 +3,8 @@
 html {
     /* Defaults css for cssmin process */
 }
+
+body {
+  width: 350px;
+  padding: 5px;
+}
