@@ -12,6 +12,7 @@
  * - Open links in tabs
  * - Organise the code
  * - Use a REST framework
+ * - Display in "k"
  */
 
 var STACK_API = 'https://api.stackexchange.com/2.1';

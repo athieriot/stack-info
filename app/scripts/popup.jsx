@@ -14,8 +14,6 @@ var RewardProgress = React.createClass({
         var next = privileges.items.filter(function(item) {
           return item.reputation > result.user.reputation;
         })[0];
-        console.log(JSON.stringify(next));
-        console.log(JSON.stringify((result.user.reputation *  100) / next.reputation));
 
         this.setState({toNext: (result.user.reputation *  100) / next.reputation, inlineText: result.user.reputation + " / " + next.reputation, nextText: next.short_description});
       }.bind(this));
@@ -64,19 +62,22 @@ var StackUser = React.createClass({
     if (this.state.user) {
       return (
         <div className="content">
-          <div className="media">
-            <a className="pull-left" href={this.state.user.website_url}>
-              <img className="media-object thumbnail" src={this.state.user.profile_image} title={decodeHtmlEntity(this.state.user.display_name)} height="92px"/>
-            </a>
-            <div className="media-body">
-              <h4 className="media-heading">{decodeHtmlEntity(this.state.user.display_name)}</h4>
-              {this.state.user.location} <br /><br />
-              <img src="http://upload.wikimedia.org/wikipedia/commons/5/5d/Farm-Fresh_medal_gold_2.png" height="16px"/> {this.state.user.badge_counts.gold}
-              <img src="http://upload.wikimedia.org/wikipedia/commons/b/b4/Farm-Fresh_medal_silver_3.png" height="16px"/> {this.state.user.badge_counts.silver}
-              <img src="http://upload.wikimedia.org/wikipedia/commons/7/73/Farm-Fresh_medal_bronze_1.png" height="16px"/> {this.state.user.badge_counts.bronze}
+          <div className="black-band"></div>
+          <div className="container inner-shadow">
+            <div className="media">
+              <a className="pull-left" href={this.state.user.website_url}>
+                <img className="media-object thumbnail" src={this.state.user.profile_image} title={decodeHtmlEntity(this.state.user.display_name)} height="92px"/>
+              </a>
+              <div className="media-body">
+                <h4 className="media-heading">{decodeHtmlEntity(this.state.user.display_name)}</h4>
+                {this.state.user.location} <br /><br />
+                <img src="../images/gold_medal.png" height="16px"/> {this.state.user.badge_counts.gold}
+                <img src="../images/silver_medal.png" height="16px"/> {this.state.user.badge_counts.silver}
+                <img src="../images/bronze_medal.png" height="16px"/> {this.state.user.badge_counts.bronze}
+              </div>
             </div>
-          </div>
           <RewardProgress />
+          </div>
         </div>
       );
     } else {
