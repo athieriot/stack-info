@@ -8,6 +8,10 @@
  * - Use Q to chain API calls
  * - Negative reputation should be Red
  * - Store the User object in the Storage. Keep doing calls in the background
+ * - Using unread notifications
+ * - Open links in tabs
+ * - Organise the code
+ * - Use a REST framework
  */
 
 var STACK_API = 'https://api.stackexchange.com/2.1';

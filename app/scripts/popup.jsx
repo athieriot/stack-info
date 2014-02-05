@@ -2,6 +2,54 @@
 
 'use strict';
 
+var RewardProgress = React.createClass({
+  getInitialState: function() {
+    return {};
+  },
+  componentWillMount: function() {
+    callStackApi('/privileges', function(privileges) {
+      
+      chrome.storage.sync.get('user', function(result) {
+        
+        var next = privileges.items.filter(function(item) {
+          return item.reputation > result.user.reputation;
+        })[0];
+        console.log(JSON.stringify(next));
+        console.log(JSON.stringify((result.user.reputation *  100) / next.reputation));
+
+        this.setState({toNext: (result.user.reputation *  100) / next.reputation, inlineText: result.user.reputation + " / " + next.reputation, nextText: next.short_description});
+      }.bind(this));
+    }.bind(this));
+  },
+  render: function() {
+    if (this.state.toNext) {
+      var style={width: this.state.toNext + "%" };
+
+      return (
+          <div className="container">
+            <span>Next: {this.state.nextText}</span>
+            <div className="progress">
+              <div className="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={style}>
+                <span className="sr-only">{this.state.toNext}% Complete</span>
+                <span>{this.state.inlineText}</span>
+              </div>
+            </div>
+          </div>
+      );
+    } else {
+      return (
+          <div></div>
+      );
+    }
+  }
+});
+
+var decodeHtmlEntity = function(str) {
+  return str.replace(/&#(\d+);/g, function(match, dec) {
+    return String.fromCharCode(dec);
+  });
+};
+
 var StackUser = React.createClass({
   getInitialState: function() {
     return {};
@@ -18,18 +66,17 @@ var StackUser = React.createClass({
         <div className="content">
           <div className="media">
             <a className="pull-left" href={this.state.user.website_url}>
-              <img className="media-object thumbnail" src={this.state.user.profile_image} alt={this.state.user.display_name} height="92px"/>
+              <img className="media-object thumbnail" src={this.state.user.profile_image} title={decodeHtmlEntity(this.state.user.display_name)} height="92px"/>
             </a>
-            <div className="media-body pull-right">
-              <h4 className="media-heading">{this.state.user.display_name.toString(16)}</h4>
-              {this.state.user.location} <br />
-              Reputation: <span className="badge">{this.state.user.reputation}</span><br />
-              Badges:
-                <span className="label label-warning">{this.state.user.badge_counts.gold}</span>
-                <span className="label label-primary">{this.state.user.badge_counts.silver}</span>
-                <span className="label label-danger">{this.state.user.badge_counts.bronze}</span>
+            <div className="media-body">
+              <h4 className="media-heading">{decodeHtmlEntity(this.state.user.display_name)}</h4>
+              {this.state.user.location} <br /><br />
+              <img src="http://upload.wikimedia.org/wikipedia/commons/5/5d/Farm-Fresh_medal_gold_2.png" height="16px"/> {this.state.user.badge_counts.gold}
+              <img src="http://upload.wikimedia.org/wikipedia/commons/b/b4/Farm-Fresh_medal_silver_3.png" height="16px"/> {this.state.user.badge_counts.silver}
+              <img src="http://upload.wikimedia.org/wikipedia/commons/7/73/Farm-Fresh_medal_bronze_1.png" height="16px"/> {this.state.user.badge_counts.bronze}
             </div>
           </div>
+          <RewardProgress />
         </div>
       );
     } else {
