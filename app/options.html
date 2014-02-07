@@ -1,13 +1,23 @@
 <!doctype html>
 <html>
     <head>
-        <link href="styles/main.css" rel="stylesheet">
-        <link href="styles/bootstrap.min.css" rel="stylesheet">
+        <link href="styles/chrome_shared.css" rel="stylesheet">
         <script src="bower_components/react/react-with-addons.js"></script>
         <script src="scripts/options.js"></script>
+        <style>
+          /* Style for this page */
+          body>.main-container{max-width:800px;margin:50px auto}
+          header{max-width:700px;margin:0 auto 50px auto;font-size:48px}
+        </style>
     </head>
     <body>
         <!-- CHROME EXTENSION OPTION -->
-        <div id="content"></div>
+        <div class="main-container">
+            <header>
+                Options for Stack Info extension
+            </header>
+            <hr />
+            <div id="formID"></div>
+        </div>
     </body>
 </html>

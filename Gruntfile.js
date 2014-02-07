@@ -40,6 +40,10 @@ module.exports = function (grunt) {
       react: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.jsx'],
         tasks: ['react']
+      },
+      htmlmin: {
+        files: ['<%= yeoman.app %>/{,*/}*.html'],
+        tasks: ['htmlmin']
       }
     },
     connect: {

@@ -28,8 +28,11 @@ var ConfigForm = React.createClass({
   render: function() {
     return (
       <form className='configForm' onSubmit={this.handleSubmit}>
-       <input type='text' placeholder='What is your ID?' ref='user_id' value={this.state.value} onChange={this.handleChange}/>
-       <input type='submit' value='Save' />
+        <h3>StackExchange ID</h3>
+        <input type='text' placeholder='What is your ID?' ref='user_id' value={this.state.value} onChange={this.handleChange}/>
+        <br />
+        <br />
+        <input type='submit' value='Save' />
       </form>
     );
   }
@@ -39,6 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   React.renderComponent(
     <ConfigForm />,
-    document.getElementById('content')
+    document.getElementById('formID')
   );
 });
