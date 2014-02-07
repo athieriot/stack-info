@@ -33,13 +33,9 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
         tasks: ['coffee:dist']
       },
-      coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
-        tasks: ['coffee:test']
-      },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server']
+        tasks: ['compass']
       },
       react: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.jsx'],
@@ -54,9 +50,10 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
+          // keepalive: true,
           middleware: function (connect) {
             return [
-              mountFolder(connect, '.tmp'),
+              mountFolder(connect, 'dist'),
               mountFolder(connect, 'test')
             ];
           }
@@ -68,13 +65,12 @@ module.exports = function (grunt) {
         files: [{
           dot: true,
           src: [
-            '.tmp',
             '<%= yeoman.dist %>/*',
             '!<%= yeoman.dist %>/.git*'
           ]
         }]
       },
-      server: '.tmp'
+      server: '<%= yeoman.dist%>'
     },
     jshint: {
       options: {
@@ -94,22 +90,19 @@ module.exports = function (grunt) {
         }
       }
     },
+    bower: {
+        install: {
+          options: {
+          }
+      }
+    },
     coffee: {
       dist: {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/scripts',
           src: '{,*/}*.coffee',
-          dest: '.tmp/scripts',
-          ext: '.js'
-        }]
-      },
-      test: {
-        files: [{
-          expand: true,
-          cwd: 'test/spec',
-          src: '{,*/}*.coffee',
-          dest: '.tmp/spec',
+          dest: '<%= yeoman.dist %>/scripts',
           ext: '.js'
         }]
       }
@@ -121,7 +114,7 @@ module.exports = function (grunt) {
             expand: true,
             cwd: '<%= yeoman.app %>/scripts',
             src: ['**/*.jsx'],
-            dest: '<%= yeoman.app %>/scripts',
+            dest: '<%= yeoman.dist %>/scripts',
             ext: '.js'
           }
         ]
@@ -130,8 +123,8 @@ module.exports = function (grunt) {
     compass: {
       options: {
         sassDir: '<%= yeoman.app %>/styles',
-        cssDir: '.tmp/styles',
-        generatedImagesDir: '.tmp/images/generated',
+        cssDir: '<%= yeoman.dist %>/styles',
+        generatedImagesDir: '<%= yeoman.dist %>/images/generated',
         imagesDir: '<%= yeoman.app %>/images',
         javascriptsDir: '<%= yeoman.app %>/scripts',
         fontsDir: '<%= yeoman.app %>/styles/fonts',
@@ -140,39 +133,7 @@ module.exports = function (grunt) {
         httpGeneratedImagesPath: '/images/generated',
         relativeAssets: false
       },
-      dist: {},
-      server: {
-        options: {
-          debugInfo: true
-        }
-      }
-    },
-    // not used since Uglify task does concat,
-    // but still available if needed
-        /*concat: {
-            dist: {}
-        },*/
-    // not enabled since usemin task does concat and uglify
-    // check index.html to edit your build targets
-    // enable this task if you prefer defining your build targets here
-        /*uglify: {
-            dist: {}
-        },*/
-    useminPrepare: {
-      options: {
-        dest: '<%= yeoman.dist %>'
-      },
-      html: [
-        '<%= yeoman.app %>/popup.html',
-        '<%= yeoman.app %>/options.html'
-      ]
-    },
-    usemin: {
-      options: {
-        dirs: ['<%= yeoman.dist %>']
-      },
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
-      css: ['<%= yeoman.dist %>/styles/{,*/}*.css']
+      dist: {}
     },
     imagemin: {
       dist: {
@@ -192,16 +153,6 @@ module.exports = function (grunt) {
           src: '{,*/}*.svg',
           dest: '<%= yeoman.dist %>/images'
         }]
-      }
-    },
-    cssmin: {
-      dist: {
-        files: {
-          '<%= yeoman.dist %>/styles/main.css': [
-            '.tmp/styles/{,*/}*.css',
-            '<%= yeoman.app %>/styles/{,*/}*.css'
-          ]
-        }
       }
     },
     htmlmin: {
@@ -234,13 +185,16 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
-            '*.{ico,png,txt}',
+            '*.{ico,png,txt,json}',
             'images/{,*/}*.{webp,gif}',
-            '_locales/{,*/}*.json'
+            '_locales/{,*/}*.json',
+            'scripts/{,*/}*.js',
+            'styles/{,*/}*.css',
+            'bower_components/{,*/}*.*'
           ]
         }, {
           expand: true,
-          cwd: '.tmp/images',
+          cwd: '<%= yeoman.app %>/images',
           dest: '<%= yeoman.dist %>/images',
           src: [
             'generated/*'
@@ -250,34 +204,23 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
-        'coffee:dist',
         'react',
-        'compass:server'
+        'coffee',
+        'compass',
       ],
       test: [
+        'react',
         'coffee',
-        'compass'
+        'compass',
       ],
       dist: [
         'react',
         'coffee',
-        'compass:dist',
+        'compass',
         'imagemin',
         'svgmin',
         'htmlmin'
       ]
-    },
-    chromeManifest: {
-      dist: {
-        options: {
-          buildnumber: true,
-          background: {
-            target:'scripts/background.js'
-          }
-        },
-        src: '<%= yeoman.app %>',
-        dest: '<%= yeoman.dist %>'
-      }
     },
     compress: {
       dist: {
@@ -286,7 +229,7 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: 'dist/',
+          cwd: '<%= yeoman.dist %>',
           src: ['**'],
           dest: ''
         }]
@@ -294,6 +237,7 @@ module.exports = function (grunt) {
     },
     release: {
       options: {
+        file: 'manifest.json',
         npm: false
       }
     }
@@ -301,21 +245,18 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'bower:install',
     'concurrent:test',
+    'copy',
     'connect:test',
     'mocha'
   ]);
 
   grunt.registerTask('build', [
     'clean:dist',
-    'chromeManifest:dist',
-    'useminPrepare',
+    'bower:install',
     'concurrent:dist',
-    'cssmin',
-    'concat',
-    'uglify',
     'copy',
-    'usemin',
     'compress'
   ]);
 

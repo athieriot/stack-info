@@ -1,0 +1,26 @@
+@import "compass/css3";
+//@import "base";
+
+//add the following variables to your _base.scss:
+//-------------------------
+$color_0: #000;
+//--------------------------
+
+html {
+}
+body {
+	width: 350px;
+}
+.black-band {
+	background-color: black;
+	height: 15px;
+}
+.container {
+	padding: 10px 0 10px 10px;
+}
+.badge-number {
+	padding-right: 10px;
+}
+.inner-shadow {
+	@include box-shadow(inset 0 0 10px $color_0);
+}

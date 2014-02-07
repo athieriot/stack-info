@@ -25,9 +25,9 @@ var RewardProgress = React.createClass({
 
       return (
           <div className="container">
-            <span>Next: {this.state.nextText}</span>
+            <span>Next privilege: <strong>{this.state.nextText}</strong></span>
             <div className="progress">
-              <div className="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={style}>
+              <div className="progress-bar progress-bar-success" role="progressbar" aria-valuenow={this.state.toNext} aria-valuemin="0" aria-valuemax="100" style={style}>
                 <span className="sr-only">{this.state.toNext}% Complete</span>
                 <span>{this.state.inlineText}</span>
               </div>
@@ -133,9 +133,4 @@ document.addEventListener('DOMContentLoaded', function () {
     <AskUser />,
     document.getElementById('content')
   );
-});
-
-//Have to make it work
-chrome.runtime.getBackgroundPage(function () {
-  console.log('Background page updated');
 });

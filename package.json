@@ -1,6 +1,6 @@
 {
   "name": "stack-info",
-  "version": "0.0.3",
+  "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -26,7 +26,8 @@
     "grunt-chrome-manifest": "~0.1.0",
     "time-grunt": "~0.1.1",
     "grunt-release": "~0.6.0",
-    "grunt-react": "~0.6.0"
+    "grunt-react": "~0.6.0",
+    "grunt-bower-task": "~0.3.4"
   },
   "engines": {
     "node": ">=0.8.0"

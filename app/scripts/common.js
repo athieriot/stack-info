@@ -6,13 +6,14 @@
  *
  * - Authentication
  * - Use Q to chain API calls
- * - Negative reputation should be Red
  * - Store the User object in the Storage. Keep doing calls in the background
  * - Using unread notifications
- * - Open links in tabs
  * - Organise the code
  * - Use a REST framework
  * - Display in "k"
+ * - option
+ * - better update / caching
+ * - JS coverage
  */
 
 var STACK_API = 'https://api.stackexchange.com/2.1';
@@ -20,6 +21,7 @@ var PERIOD_IN_MINUTES = 10;
 
 var NORMAL_COLOR = '#FFA217';
 var OK_COLOR = '#389D3C';
+var BAD_COLOR = '#8A0808';
 var ERROR_COLOR = '#7C7C7B';
 
 var REPUTATION_KEY = 'latestReputationChange';
