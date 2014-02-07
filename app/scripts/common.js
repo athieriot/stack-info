@@ -1,5 +1,3 @@
-/*jshint camelcase: false*/
-
 'use strict';
 
 /* TODO:
@@ -11,9 +9,14 @@
  * - Organise the code
  * - Use a REST framework
  * - Display in "k"
- * - option
+ * - option page
  * - better update / caching
  * - JS coverage
+ * - jshint with jsx?
+ * - Browserify or require
+ * - Grunt Watch + copy
+ * - Jon Skeet has no more reward
+ * - Switch account screw up the notifications
  */
 
 var STACK_API = 'https://api.stackexchange.com/2.1';
@@ -28,9 +31,9 @@ var REPUTATION_KEY = 'latestReputationChange';
 var USER_ID_KEY = 'user_id';
 
 var handleError = function(error) {
-    chrome.browserAction.setBadgeText({text: '?'});
-    chrome.browserAction.setBadgeBackgroundColor({color: ERROR_COLOR});
-    chrome.browserAction.setTitle({title: error});
+   chrome.browserAction.setBadgeText({text: '?'});
+   chrome.browserAction.setBadgeBackgroundColor({color: ERROR_COLOR});
+   chrome.browserAction.setTitle({title: error});
 };
 
 var callStackApi = function(path, callback) {
@@ -44,7 +47,7 @@ var callStackApi = function(path, callback) {
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
 
-          if (xhr.status.toString().indexOf("2") === 0) {
+          if (xhr.status.toString().indexOf('2') === 0) {
             callback(JSON.parse(xhr.responseText));
           } else {
             var error = xhr.responseText ? JSON.parse(xhr.responseText).error_message : xhr.statusText;

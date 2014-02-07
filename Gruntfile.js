@@ -91,9 +91,8 @@ module.exports = function (grunt) {
       }
     },
     bower: {
-        install: {
-          options: {
-          }
+      install: {
+        options: {}
       }
     },
     coffee: {

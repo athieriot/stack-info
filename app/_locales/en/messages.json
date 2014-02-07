@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "stack-info",
+    "message": "Stack Info",
     "description": "The name of the application"
   },
   "appDescription": {
-    "message": "Stack Info Chrome Extension",
+    "message": "StackExchange unofficial Chrome Extension",
     "description": "The description of the application"
   }
 }

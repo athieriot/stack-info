@@ -20,10 +20,10 @@ var checkReputation = function() {
 };
 
 var prepareNewReputation = function(entry) {
-    var text = entry < 0 ? "- " + (entry * -1).toString() : "+ " + entry.toString();
-    var color = entry < 0 ? BAD_COLOR : OK_COLOR;
+  var text = entry < 0 ? '- ' + (entry * -1).toString() : '+ ' + entry.toString();
+  var color = entry < 0 ? BAD_COLOR : OK_COLOR;
 
-    return {text: text, color: color};
+  return {text: text, color: color};
 };
 
 var reputationUpdate = function(change) {
@@ -60,6 +60,6 @@ chrome.storage.onChanged.addListener(function(changes) {
   }
 });
 
-chrome.runtime.onMessage.addListener(function(message) {
+chrome.runtime.onMessage.addListener(function() {
   checkReputation();
 });
