@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "dependencies": {
     "react": "~0.8.0",
-    "requirejs": "~2.1.10"
+    "requirejs": "~2.1.10",
+    "oauth-js": "~0.1.7",
+    "oboe": "~1.13.0"
   },
   "devDependencies": {}
 }

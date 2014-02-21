@@ -13,7 +13,6 @@
  * - better update / caching
  * - JS coverage
  * - jshint with jsx?
- * - Browserify or require
  * - Grunt Watch + copy
  * - Jon Skeet has no more reward
  * - Switch account screw up the notifications

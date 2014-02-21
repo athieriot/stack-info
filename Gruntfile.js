@@ -194,7 +194,7 @@ module.exports = function (grunt) {
             '_locales/{,*/}*.json',
             'scripts/{,*/}*.js',
             'styles/{,*/}*.css',
-            'bower_components/{,*/}*.*'
+            'bower_components/{,**/}*.*'
           ]
         }, {
           expand: true,
