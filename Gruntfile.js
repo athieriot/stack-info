@@ -241,7 +241,7 @@ module.exports = function (grunt) {
     },
     release: {
       options: {
-        file: 'manifest.json',
+        file: './app/manifest.json',
         npm: false
       }
     }
